@@ -10,9 +10,9 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const inputValue = inputRef.current.value;
-    const response = createGuest({ name: inputValue })
+    const response = await createGuest({ name: inputValue })
 
-    console.log(response);
+    console.log('response', response);
   };
 
   return (

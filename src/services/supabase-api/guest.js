@@ -1,7 +1,7 @@
 import { slugify } from "@/helpers/slugfy";
 import { supabase } from "@/services/supabase";
 
-export const getGuestBySlug = async ({slug}) => {
+export const getGuestBySlug = async ({ slug }) => {
   const { data, error } = await supabase
     .from("Guest")
     .select("*")
@@ -9,7 +9,6 @@ export const getGuestBySlug = async ({slug}) => {
     .single();
 
   if (error) {
-    console.error("Error getting guest: ", error);
     return null;
   }
 
@@ -23,10 +22,12 @@ export async function createGuest(values) {
     };
   }
 
-  const name = values.name.trim()
+  const name = values.name.trim();
   const slug = slugify(values.name);
 
-  const existingGuest = await getGuestBySlug({slug});
+  const existingGuest = await getGuestBySlug({ slug });
+
+  console.log("existingGuest", existingGuest);
 
   if (existingGuest) {
     return existingGuest;
@@ -34,7 +35,9 @@ export async function createGuest(values) {
 
   const { data, error } = await supabase
     .from("Guest")
-    .insert([{ name: name, slug: slugify(name) }]);
+    .insert([{ name: name, slug: slugify(name) }])
+    .select()
+    .single();
 
   if (error) {
     console.error("Error inserting guest: ", error);
