@@ -1,4 +1,4 @@
-import { slugify } from "@/helpers/slugfy";
+import { slugfy } from "@/helpers/slugfy";
 import { supabase } from "@/services/supabase";
 
 export const getGuestBySlug = async ({ slug }) => {
@@ -23,7 +23,7 @@ export async function createGuest(values) {
   }
 
   const name = values.name.trim();
-  const slug = slugify(values.name);
+  const slug = slugfy(values.name);
 
   const existingGuest = await getGuestBySlug({ slug });
 
@@ -35,7 +35,7 @@ export async function createGuest(values) {
 
   const { data, error } = await supabase
     .from("Guest")
-    .insert([{ name: name, slug: slugify(name) }])
+    .insert([{ name: name, slug: slugfy(name) }])
     .select()
     .single();
 
