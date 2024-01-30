@@ -14,7 +14,7 @@ const Input = styled.input`
   background: transparent;
 
   border-radius: 6px;
-  border: 1px solid ${(props) => props.theme.border};
+  border: 1px solid ${(props) => props.theme.colors.border};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   &::placeholder {
