@@ -5,20 +5,28 @@ import { Input } from "@/components/Input";
 import { createGuest } from "@/services/supabase-api/guest";
 import { useState } from "react";
 import { Styles } from "./styles";
+import { useRouter } from "next/navigation";
+import { useGlobalContext } from "@/provider/GlobalContextProvider";
+import { CONFIG } from "@/static/config";
 
 export default function Home() {
   const [name, setName] = useState("");
+  const router = useRouter();
+  const { setCurrentUser } = useGlobalContext();
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await createGuest({ name: name });
+    const user = await createGuest({ name: name });
 
-    console.log("response", response);
+    if (user) {
+      setCurrentUser(user);
+    }
   };
 
   return (
     <Styles.Container>
-      <Styles.Title>Chá de panela</Styles.Title>
+      <Styles.Title>{CONFIG.appTitle}</Styles.Title>
       <Styles.Subtitle>Sugestão de presentes</Styles.Subtitle>
       <Styles.Form onSubmit={handleSubmit}>
         <Input
