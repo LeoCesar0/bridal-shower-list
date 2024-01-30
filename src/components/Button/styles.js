@@ -8,6 +8,8 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  border: ${(props) => `1px solid ${props.theme.colors["border"]}`};
 
   ${(props) =>
     props.variant === "primary" &&
@@ -36,6 +38,12 @@ ${(props) =>
     padding: 2px 8px;
     font-size: 12px;
     border-radius: 16px;
+ `}
+
+${(props) =>
+    props.disabled &&
+    `
+    opacity: 0.5;
  `}
 `;
 

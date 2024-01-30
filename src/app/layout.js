@@ -1,7 +1,8 @@
-import { Poppins } from "next/font/google";
-import "../styles/globals.css";
+import { Poppins, Fasthand } from "next/font/google";
 import { StyledComponentsProvider } from "@/provider/StyledComponentsProvider";
 import StyledComponentsRegistry from "@/lib/registry";
+import "../styles/fonts.css";
+import GlobalContextProvider from "@/provider/GlobalContextProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,7 +19,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <StyledComponentsRegistry>
         <StyledComponentsProvider>
-          <body className={poppins.className}>{children}</body>
+          <GlobalContextProvider>
+            <body className={poppins.className}>
+              <div id="app-container">{children}</div>
+            </body>
+          </GlobalContextProvider>
         </StyledComponentsProvider>
       </StyledComponentsRegistry>
     </html>

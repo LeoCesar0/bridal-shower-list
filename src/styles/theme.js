@@ -1,4 +1,4 @@
-export const THEME = {
+const theme = {
   colors: {
     background: "#F8FFFF",
     "background-text": "#2E0527",
@@ -8,4 +8,10 @@ export const THEME = {
     warning: "#FBEEC2",
     border: "#8A8A8A",
   },
+  spacing: {
+    "container-vertical-padding": "10px",
+    "container-horizontal-padding": "10px",
+  },
 };
+
+export default theme;

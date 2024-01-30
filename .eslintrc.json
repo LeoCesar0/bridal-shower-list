@@ -1,3 +1,35 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["eslint:recommended", "next", "next/core-web-vitals"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "globals": {
+    "OneSignal": "readonly"
+  },
+  "rules": {
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "quotes": ["warn", "double"],
+    "semi": ["warn", "always"],
+    "prefer-const": [
+      "warn",
+      {
+        "destructuring": "any",
+        "ignoreReadBeforeAssign": true
+      }
+    ],
+    "no-useless-escape": "warn",
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false,
+        "varsIgnorePattern": "^_"
+      }
+    ]
+  }
 }

@@ -7,7 +7,7 @@ export const Button = ({
   ...rest
 }) => {
   return (
-    <Styles.Button type={type} {...rest}>
+    <Styles.Button variant={variant}  type={type} {...rest}>
       {children}
     </Styles.Button>
   );
