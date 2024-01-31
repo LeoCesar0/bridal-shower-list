@@ -1,16 +1,29 @@
 "use client";
 import { CONFIG } from "@/static/config";
 import { Styles } from "./styles";
+import { IconButton } from "@/components/IconButton";
+import Image from "next/image";
+import { Card } from "@/components/Card";
 
 
 export default function ListPage() {
 
   return (
     <Styles.Container>
-      <header>
+      <Styles.Header>
         <Styles.HeaderTop >
-          <h1>{CONFIG.appTitle}</h1>
-          <div class='actions' ></div>
+          <Styles.Title>{CONFIG.appTitle}</Styles.Title>
+          <div className='actions' >
+            <IconButton>
+              <Image width={18} height={18} alt='search' src='icons/search.svg' />
+            </IconButton>
+            <IconButton>
+              <Image width={18} height={18} alt='share' src='icons/share.svg' />
+            </IconButton>
+            <IconButton>
+              <Image width={18} height={18} alt='logout' src='icons/logout.svg' />
+            </IconButton>
+          </div>
         </ Styles.HeaderTop >
         <Styles.HeaderBottom>
           <Styles.Description>
@@ -18,7 +31,17 @@ export default function ListPage() {
           </Styles.Description>
           <img alt='tea-logo' src='tea.svg' />
         </Styles.HeaderBottom>
-      </header>
+      </Styles.Header>
+      <ul>
+        {mockProducts.map((product) => (
+          <li key={product.id}>
+            <Card
+              productName={product.name}
+              isAvailable={true}
+            />
+          </li>
+        ))}
+      </ul>
     </Styles.Container>
   );
 }

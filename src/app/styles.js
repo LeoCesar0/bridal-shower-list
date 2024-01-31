@@ -30,7 +30,6 @@ const Container = styled.div`
   flex-direction: column;
   height: ${({theme}) => `calc(100vh - 2*${theme.spacing["container-vertical-padding"]})`};
   width: 100%;
-  overflow: hidden;
   padding-top:48px;
 `;
 
@@ -56,6 +55,7 @@ const Footer = styled.footer`
     line-height: 100%; /* 16px */
     letter-spacing: -0.32px;
     margin-top: 25px;
+    margin-bottom: 44px;
   }
 `;
 

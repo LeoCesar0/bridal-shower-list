@@ -1,4 +1,4 @@
-import { Poppins, Fasthand } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { StyledComponentsProvider } from "@/provider/StyledComponentsProvider";
 import StyledComponentsRegistry from "@/lib/registry";
 import "../styles/fonts.css";
