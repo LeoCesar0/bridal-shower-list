@@ -32,11 +32,15 @@ body{
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  max-width: 600px;
   margin: 0 auto;
   padding: ${({ theme }) =>
     `${theme.spacing["container-vertical-padding"]} ${theme.spacing["container-horizontal-padding"]}`};
-  overflow: hidden;
+  
+  max-width: 600px;
+  @media screen and (min-width: 600px){
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  }
 }
 
 

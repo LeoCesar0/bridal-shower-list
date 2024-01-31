@@ -4,8 +4,9 @@ const theme = {
     "background-text": "#2E0527",
     primary: "#6E837C",
     "primary-text": "#F8FFFF",
-    success: "#D9FF71",
-    warning: "#FBEEC2",
+    available: "rgba(217,255,113,0.69)",
+    confirm: "#C5E481",
+    selected: "#FBEEC2",
     border: "#8A8A8A",
   },
   spacing: {
