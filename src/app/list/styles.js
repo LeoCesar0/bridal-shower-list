@@ -60,7 +60,16 @@ const List = styled.ul`
   margin: 0;
 `;
 
+const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  margin-bottom: 8px;
+
+  background-color: ${({ theme }) => theme.colors["border-light"]};
+`; 
+
 export const Styles = {
+  Divider,
   List,
   Header,
   Title,

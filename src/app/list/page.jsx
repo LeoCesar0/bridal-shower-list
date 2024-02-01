@@ -39,6 +39,7 @@ export default function ListPage() {
           <img alt="tea-logo" src="tea.svg" />
         </Styles.HeaderBottom>
       </Styles.Header>
+      <Styles.Divider />
       <Styles.List>
         {mockProducts.map((product) => (
           <li key={product.id}>

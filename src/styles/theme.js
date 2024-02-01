@@ -8,6 +8,7 @@ const theme = {
     confirm: "#C5E481",
     selected: "#FBEEC2",
     border: "#8A8A8A",
+    "border-light": "#b6b6b6",
   },
   spacing: {
     "container-vertical-padding": "10px",
