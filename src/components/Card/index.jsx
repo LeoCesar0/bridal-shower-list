@@ -9,7 +9,7 @@ export const Card = ({
   ...rest
 }) => {
 
-  const statusLabel = isAvailable ? "Disponível" : "Selecionado";
+  const statusLabel = isAvailable ? "disponível" : "selecionado";
 
   return (
     <Styles.Card {...rest}>
@@ -18,18 +18,18 @@ export const Card = ({
       </div>
       <div className="content">
         <div className="texts">
-          <span class={
+          <span className={
             ["status",
               isAvailable ? "available" : "selected"
             ].join(" ")
           }
           
           >{statusLabel}</span>
-          <h3 className="product-name">{productName}</h3>
+          <h3 className="product-name">ASD ASD ASDA ASDASD AS ASDASDASDAS ASD ASD</h3>
         </div>
         <div className="actions">
-          <div className="left-actions">{rightActions}</div>
-          <div className="right-actions">{leftActions}</div>
+          <div className="left-actions">{leftActions}</div>
+          <div className="right-actions">{rightActions}</div>
         </div>
       </div>
     </Styles.Card>

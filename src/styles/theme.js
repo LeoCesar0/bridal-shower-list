@@ -2,7 +2,7 @@ const theme = {
   colors: {
     background: "#F8FFFF",
     "background-text": "#2E0527",
-    primary: "#6E837C",
+    primary: "rgba(110,131,124,0.7)",
     "primary-text": "#F8FFFF",
     available: "rgba(217,255,113,0.69)",
     confirm: "#C5E481",

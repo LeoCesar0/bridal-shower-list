@@ -4,48 +4,76 @@ import { Styles } from "./styles";
 import { IconButton } from "@/components/IconButton";
 import Image from "next/image";
 import { Card } from "@/components/Card";
-
+import { Button } from "@/components/Button";
 
 export default function ListPage() {
-
   return (
     <Styles.Container>
       <Styles.Header>
-        <Styles.HeaderTop >
+        <Styles.HeaderTop>
           <Styles.Title>{CONFIG.appTitle}</Styles.Title>
-          <div className='actions' >
+          <div className="actions">
             <IconButton>
-              <Image width={18} height={18} alt='search' src='icons/search.svg' />
+              <Image
+                width={18}
+                height={18}
+                alt="search"
+                src="icons/search.svg"
+              />
             </IconButton>
             <IconButton>
-              <Image width={18} height={18} alt='share' src='icons/share.svg' />
+              <Image width={18} height={18} alt="share" src="icons/share.svg" />
             </IconButton>
             <IconButton>
-              <Image width={18} height={18} alt='logout' src='icons/logout.svg' />
+              <Image
+                width={18}
+                height={18}
+                alt="logout"
+                src="icons/logout.svg"
+              />
             </IconButton>
           </div>
-        </ Styles.HeaderTop >
+        </Styles.HeaderTop>
         <Styles.HeaderBottom>
-          <Styles.Description>
-            {CONFIG.appDescription}
-          </Styles.Description>
-          <img alt='tea-logo' src='tea.svg' />
+          <Styles.Description>{CONFIG.appDescription}</Styles.Description>
+          <img alt="tea-logo" src="tea.svg" />
         </Styles.HeaderBottom>
       </Styles.Header>
-      <ul>
+      <Styles.List>
         {mockProducts.map((product) => (
           <li key={product.id}>
             <Card
               productName={product.name}
               isAvailable={true}
+              leftActions={
+                <>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                  >Selecionar</Button>
+                </>
+              }
+              rightActions={
+                <>
+                  <IconButton width={24} height={24}
+                    variant="ghost"
+                  >
+                    <Image
+                      width={15}
+                      height={12}
+                      alt="return"
+                      src="icons/return.svg"
+                    />
+                  </IconButton>
+                </>
+              }
             />
           </li>
         ))}
-      </ul>
+      </Styles.List>
     </Styles.Container>
   );
 }
-
 
 const mockProducts = [
   {
@@ -56,7 +84,7 @@ const mockProducts = [
     createdAt: new Date(),
     updatedAt: new Date(),
     selectedBy: null,
-    guestId: null
+    guestId: null,
   },
   {
     id: 2,
@@ -66,7 +94,7 @@ const mockProducts = [
     createdAt: new Date(),
     updatedAt: new Date(),
     selectedBy: null,
-    guestId: null
+    guestId: null,
   },
   {
     id: 3,
@@ -76,7 +104,7 @@ const mockProducts = [
     createdAt: new Date(),
     updatedAt: new Date(),
     selectedBy: null,
-    guestId: null
+    guestId: null,
   },
   {
     id: 4,
@@ -86,7 +114,7 @@ const mockProducts = [
     createdAt: new Date(),
     updatedAt: new Date(),
     selectedBy: null,
-    guestId: null
+    guestId: null,
   },
   {
     id: 5,
@@ -96,6 +124,6 @@ const mockProducts = [
     createdAt: new Date(),
     updatedAt: new Date(),
     selectedBy: null,
-    guestId: null
+    guestId: null,
   },
 ];

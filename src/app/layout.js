@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
       <StyledComponentsRegistry>
         <StyledComponentsProvider>
           <GlobalContextProvider>
-            <body className={poppins.className}>
+            <body>
               <div id="app-container">{children}</div>
             </body>
           </GlobalContextProvider>
