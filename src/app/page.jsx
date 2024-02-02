@@ -3,7 +3,7 @@
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { createGuest } from "@/services/supabase-api/guest";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Styles } from "./styles";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "@/provider/GlobalContextProvider";
@@ -12,8 +12,9 @@ import { CONFIG } from "@/static/config";
 export default function Home() {
   const [name, setName] = useState("");
   const router = useRouter();
-  const { setCurrentUser } = useGlobalContext();
+  const { setCurrentUser, currentUser } = useGlobalContext();
 
+  const currentUserSlug = currentUser?.slug;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,6 +24,12 @@ export default function Home() {
       setCurrentUser(user);
     }
   };
+
+  useEffect(() => {
+    if (currentUserSlug) {
+      router.push("/list");
+    }
+  }, [currentUserSlug]);
 
   return (
     <Styles.Container>

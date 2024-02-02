@@ -5,8 +5,42 @@ import { IconButton } from "@/components/IconButton";
 import Image from "next/image";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
+import { useGlobalContext } from "@/provider/GlobalContextProvider";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  listAllProducts,
+  updateProductGuestId,
+} from "@/services/supabase-api/product";
 
 export default function ListPage() {
+  const { currentUser } = useGlobalContext();
+  const [products, setProducts] = useState([]);
+  const router = useRouter();
+
+  const currentUserSlug = currentUser?.slug;
+
+  useEffect(() => {
+    if (!currentUserSlug) {
+      router.push("/");
+    }
+  }, [currentUserSlug]);
+
+  useEffect(() => {
+    listAllProducts().then((data) => {
+      setProducts(data || []);
+    });
+  }, []);
+
+  const onSelectProduct = async ({ product }) => {
+    if (currentUser) {
+      await updateProductGuestId({
+        productId: product.id,
+        guestId: product.guestId ? null : currentUser.id,
+      });
+    }
+  };
+
   return (
     <Styles.Container>
       <Styles.Header>
@@ -41,8 +75,8 @@ export default function ListPage() {
       </Styles.Header>
       <Styles.Divider />
       <Styles.List>
-        {mockProducts.map((product) => (
-          <li key={product.id}>
+        {products.map((product) => (
+          <li key={product.slug}>
             <Card
               productName={product.name}
               isAvailable={true}
@@ -51,14 +85,17 @@ export default function ListPage() {
                   <Button
                     size="sm"
                     variant="secondary"
-                  >Selecionar</Button>
+                    onClick={() => {
+                      onSelectProduct({ product });
+                    }}
+                  >
+                    Selecionar
+                  </Button>
                 </>
               }
               rightActions={
                 <>
-                  <IconButton width={24} height={24}
-                    variant="ghost"
-                  >
+                  <IconButton width={24} height={24} variant="ghost">
                     <Image
                       width={15}
                       height={12}
@@ -75,56 +112,3 @@ export default function ListPage() {
     </Styles.Container>
   );
 }
-
-const mockProducts = [
-  {
-    id: 1,
-    name: "Kitchen Set 1",
-    slug: "kitchen-set-1",
-    image: "https://picsum.photos/200",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    selectedBy: null,
-    guestId: null,
-  },
-  {
-    id: 2,
-    name: "Kitchen Set 2",
-    slug: "kitchen-set-2",
-    image: "https://picsum.photos/200",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    selectedBy: null,
-    guestId: null,
-  },
-  {
-    id: 3,
-    name: "Kitchen Set 3",
-    slug: "kitchen-set-3",
-    image: "https://picsum.photos/200",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    selectedBy: null,
-    guestId: null,
-  },
-  {
-    id: 4,
-    name: "Kitchen Set 4",
-    slug: "kitchen-set-4",
-    image: "https://picsum.photos/200",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    selectedBy: null,
-    guestId: null,
-  },
-  {
-    id: 5,
-    name: "Kitchen Set 5",
-    slug: "kitchen-set-5",
-    image: "https://picsum.photos/200",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    selectedBy: null,
-    guestId: null,
-  },
-];

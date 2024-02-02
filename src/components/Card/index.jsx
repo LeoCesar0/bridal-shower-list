@@ -25,7 +25,7 @@ export const Card = ({
           }
           
           >{statusLabel}</span>
-          <h3 className="product-name">ASD ASD ASDA ASDASD AS ASDASDASDAS ASD ASD</h3>
+          <h3 className="product-name">{productName}</h3>
         </div>
         <div className="actions">
           <div className="left-actions">{leftActions}</div>

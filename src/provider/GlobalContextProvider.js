@@ -1,6 +1,7 @@
 "use client";
 
 import { handleStorage } from "@/helpers/handleStorage";
+import { createGuest, getGuestBySlug } from "@/services/supabase-api/guest";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -12,11 +13,8 @@ export const GlobalContext = createContext(initialState);
 
 const GlobalContextProvider = ({ children }) => {
   const [state, setState] = useState(initialState);
-  const router = useRouter();
 
   const { setStorage, getStorage } = handleStorage();
-
-  const currentUserSlug = state.currentUser?.slug || null;
 
   const setCurrentUser = (user) => {
     setStorage("currentUser", user);
@@ -26,21 +24,38 @@ const GlobalContextProvider = ({ children }) => {
     }));
   };
 
-  useEffect(() => {
-    const currentUser = getStorage("currentUser") || null;
+  const reloadCurrentUser = async () => {
+    const currentUser = state.currentUser;
     if (currentUser) {
-      setState((prev) => ({
-        ...prev,
-        currentUser,
-      }));
+      const updatedUser = await getGuestBySlug({ slug: currentUser.slug });
+      if (updatedUser) {
+        setCurrentUser(updatedUser);
+      }
     }
-  }, []);
+  };
 
   useEffect(() => {
-    if (currentUserSlug) {
-      router.push("/list",);
-    }
-  }, [currentUserSlug]);
+    const check = async () => {
+      const storagedUser = getStorage("currentUser") || null;
+      if (storagedUser && storagedUser.slug && storagedUser.name) {
+        let existingUser = await getGuestBySlug({ slug: storagedUser.slug });
+        console.log("existingUser", existingUser);
+        if (!existingUser) {
+          existingUser = await createGuest({ name: storagedUser.name });
+        }
+        setState((prev) => ({
+          ...prev,
+          currentUser: existingUser || null,
+        }));
+      } else {
+        setState((prev) => ({
+          ...prev,
+          currentUser: null,
+        }));
+      }
+    };
+    check();
+  }, []);
 
   return (
     <GlobalContext.Provider
@@ -48,6 +63,7 @@ const GlobalContextProvider = ({ children }) => {
         ...state,
         setState,
         setCurrentUser,
+        reloadCurrentUser
       }}
     >
       {children}
