@@ -6,10 +6,11 @@ import Image from "next/image";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
 import { useGlobalContext } from "@/provider/GlobalContextProvider";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   listAllProducts,
+  listenToProductsList,
   updateProductGuestId,
 } from "@/services/supabase-api/product";
 
@@ -18,7 +19,21 @@ export default function ListPage() {
   const [products, setProducts] = useState([]);
   const router = useRouter();
 
+  const productsRef = useRef(products);
+
   const currentUserSlug = currentUser?.slug;
+
+  const onProductChange = (newProduct) => {
+    if (!newProduct) return;
+    let productsList = productsRef.current || [];
+    productsList = [...productsList];
+    const productIndex = productsList.findIndex(
+      (product) => product.id === newProduct.id
+    );
+    if (productIndex === -1) return;
+    productsList.splice(productIndex, 1, newProduct);
+    setProducts([...productsList]);
+  };
 
   useEffect(() => {
     if (!currentUserSlug) {
@@ -29,10 +44,15 @@ export default function ListPage() {
   useEffect(() => {
     listAllProducts().then((data) => {
       setProducts(data || []);
+      listenToProductsList(onProductChange);
     });
   }, []);
 
-  const onSelectProduct = async ({ product }) => {
+  useEffect(() => {
+    productsRef.current = products;
+  }, [products]);
+
+  const toggleSelectedProduct = async ({ product }) => {
     if (currentUser) {
       await updateProductGuestId({
         productId: product.id,
@@ -40,6 +60,8 @@ export default function ListPage() {
       });
     }
   };
+
+  if (!currentUser) return null;
 
   return (
     <Styles.Container>
@@ -75,39 +97,54 @@ export default function ListPage() {
       </Styles.Header>
       <Styles.Divider />
       <Styles.List>
-        {products.map((product) => (
-          <li key={product.slug}>
-            <Card
-              productName={product.name}
-              isAvailable={true}
-              leftActions={
-                <>
-                  <Button
-                    size="sm"
-                    variant="secondary"
-                    onClick={() => {
-                      onSelectProduct({ product });
-                    }}
-                  >
-                    Selecionar
-                  </Button>
-                </>
-              }
-              rightActions={
-                <>
-                  <IconButton width={24} height={24} variant="ghost">
-                    <Image
-                      width={15}
-                      height={12}
-                      alt="return"
-                      src="icons/return.svg"
-                    />
-                  </IconButton>
-                </>
-              }
-            />
-          </li>
-        ))}
+        {products.map((product) => {
+          const productIsAvailable = !product.guestId;
+
+          return (
+            <li key={product.slug}>
+              <Card
+                productName={product.name}
+                isAvailable={productIsAvailable}
+                leftActions={
+                  <>
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      onClick={() => {
+                        toggleSelectedProduct({ product });
+                      }}
+                      disabled={!productIsAvailable}
+                    >
+                      Selecionar
+                    </Button>
+                  </>
+                }
+                rightActions={
+                  <>
+                    {!productIsAvailable &&
+                      product.guestId === currentUser.id && (
+                      <IconButton
+                        width={24}
+                        height={24}
+                        variant="ghost"
+                        onClick={() => {
+                          toggleSelectedProduct({ product });
+                        }}
+                      >
+                        <Image
+                          width={15}
+                          height={12}
+                          alt="return"
+                          src="icons/return.svg"
+                        />
+                      </IconButton>
+                    )}
+                  </>
+                }
+              />
+            </li>
+          );
+        })}
       </Styles.List>
     </Styles.Container>
   );

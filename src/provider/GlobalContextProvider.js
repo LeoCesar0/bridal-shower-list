@@ -39,7 +39,6 @@ const GlobalContextProvider = ({ children }) => {
       const storagedUser = getStorage("currentUser") || null;
       if (storagedUser && storagedUser.slug && storagedUser.name) {
         let existingUser = await getGuestBySlug({ slug: storagedUser.slug });
-        console.log("existingUser", existingUser);
         if (!existingUser) {
           existingUser = await createGuest({ name: storagedUser.name });
         }

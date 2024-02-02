@@ -37,12 +37,23 @@ export const updateProductGuestId = async ({ productId, guestId }) => {
     .select()
     .single();
 
-  console.log("data!", data);
-
   if (error) {
     console.error("Error updateProductGuestId: ", error);
     return null;
   }
 
   return data;
+};
+
+export const listenToProductsList = (onChange) => {
+  supabase
+    .channel("Product")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "Product" },
+      (payload) => {
+        onChange(payload?.new || null);
+      }
+    )
+    .subscribe();
 };
