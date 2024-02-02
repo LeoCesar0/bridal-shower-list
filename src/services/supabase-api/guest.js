@@ -4,7 +4,7 @@ import { supabase } from "@/services/supabase";
 export const getGuestBySlug = async ({ slug }) => {
   const { data, error } = await supabase
     .from("Guest")
-    .select("*")
+    .select("*, Product (*)")
     .eq("slug", slug)
     .single();
 
@@ -27,7 +27,6 @@ export async function createGuest(values) {
 
   const existingGuest = await getGuestBySlug({ slug });
 
-  console.log("existingGuest", existingGuest);
 
   if (existingGuest) {
     return existingGuest;
