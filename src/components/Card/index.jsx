@@ -1,14 +1,12 @@
-import Image from "next/image";
-import { Button } from "../Button";
-import { IconButton } from "../IconButton";
 import { Styles } from "./styles";
 import { updateProductGuestId } from "@/services/supabase-api/product";
 import { useGlobalContext } from "@/provider/GlobalContextProvider";
+import { Button } from "../Button";
 
 export const Card = ({ product, ...rest }) => {
-  const { currentUser } = useGlobalContext();
+  const { currentUser, setModalProps } = useGlobalContext();
 
-  if(!currentUser) return null;
+  if (!currentUser) return null;
 
   const isAvailable = !product.guestId;
 
@@ -60,7 +58,15 @@ export const Card = ({ product, ...rest }) => {
           <button
             className="button-inner"
             onClick={() => {
-              toggleSelectedProduct();
+              if (isMyProduct) {
+                setModalProps({
+                  title: "Desmarcar o produto?",
+                  onConfirm: toggleSelectedProduct,
+                  isOpen: true
+                });
+              } else {
+                toggleSelectedProduct();
+              }
             }}
             disabled={disabled}
           >

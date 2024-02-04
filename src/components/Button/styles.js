@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Button = styled.button`
   display: flex;
   font-size: 16px;
-  padding: 4px 8px;
+  padding: 6px 16px;
   border-radius: 6px;
   justify-content: center;
   align-items: center;
@@ -30,7 +30,7 @@ ${(props) =>
     props.variant === "confirm" &&
     `
     background: ${props.theme.colors.success};
-    color: ${props.theme.colors["background-text"]};
+    color: ${props.theme.colors["background"]};
  `}
 
 ${(props) =>

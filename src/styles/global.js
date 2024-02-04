@@ -38,8 +38,8 @@ body{
   padding: ${({ theme }) =>
     `${theme.spacing["container-vertical-padding"]} ${theme.spacing["container-horizontal-padding"]}`};
   
-  max-width: 600px;
-  @media screen and (min-width: 600px){
+  max-width: ${({ theme }) => theme.spacing["container-max-width"]};
+  @media screen and (min-width: ${({ theme }) => theme.spacing["container-max-width"]}){
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
   }

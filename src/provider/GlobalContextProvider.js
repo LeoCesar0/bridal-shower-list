@@ -1,5 +1,6 @@
 "use client";
 
+import { Dialog } from "@/components/Dialog";
 import { handleStorage } from "@/helpers/handleStorage";
 import { createGuest, getGuestBySlug } from "@/services/supabase-api/guest";
 import { useRouter } from "next/navigation";
@@ -13,7 +14,7 @@ export const GlobalContext = createContext(initialState);
 
 const GlobalContextProvider = ({ children }) => {
   const [state, setState] = useState(initialState);
-
+  const [modalProps, setModalProps] = useState({});
   const { setStorage, getStorage } = handleStorage();
 
   const setCurrentUser = (user) => {
@@ -25,7 +26,13 @@ const GlobalContextProvider = ({ children }) => {
   };
 
   const logOut = () => {
-    setCurrentUser(null);
+    setModalProps({
+      title: "Deseja sair da conta?",
+      onConfirm: () => {
+        setCurrentUser(null);
+      },
+      isOpen: true
+    });
   };
 
   const reloadCurrentUser = async () => {
@@ -67,10 +74,12 @@ const GlobalContextProvider = ({ children }) => {
         setState,
         setCurrentUser,
         reloadCurrentUser,
-        logOut
+        logOut,
+        setModalProps
       }}
     >
       {children}
+      <Dialog {...modalProps} setModalProps={setModalProps} />
     </GlobalContext.Provider>
   );
 };

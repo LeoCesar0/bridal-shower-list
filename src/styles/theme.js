@@ -5,7 +5,7 @@ const theme = {
     primary: "rgba(110,131,124,0.7)",
     "primary-text": "#F8FFFF",
     available: "rgba(217,255,113,0.69)",
-    confirm: "#C5E481",
+    success: "rgba(115, 156, 143, 1)",
     selected: "#FBEEC2",
     border: "#8A8A8A",
     "border-light": "#b6b6b6",
@@ -14,6 +14,7 @@ const theme = {
   spacing: {
     "container-vertical-padding": "10px",
     "container-horizontal-padding": "10px",
+    "container-max-width":"600px" 
   },
 };
 
