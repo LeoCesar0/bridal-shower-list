@@ -8,6 +8,8 @@ import { useGlobalContext } from "@/provider/GlobalContextProvider";
 export const Card = ({ product, ...rest }) => {
   const { currentUser } = useGlobalContext();
 
+  if(!currentUser) return null;
+
   const isAvailable = !product.guestId;
 
   const isMyProduct = product.guestId && product.guestId === currentUser?.id;

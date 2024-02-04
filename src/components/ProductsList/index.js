@@ -19,10 +19,7 @@ export const ProductsList = ({products}) => {
           return (
             <li key={product.slug}>
               <Card
-                productName={product.name}
                 product={product}
-               
-               
               />
             </li>
           );

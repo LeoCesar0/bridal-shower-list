@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -8,9 +7,26 @@ const Container = styled.div`
     `calc(100vh - 2*${theme.spacing["container-vertical-padding"]})`};
   width: 100%;
   padding-top: 16px;
+  overflow: hidden;
 `;
 
 const Header = styled.header`
+  position: relative;
+`;
+
+const SearchContainer = styled.div`
+  position: absolute;
+  left: 0;
+  background-color: ${({ theme }) => theme.colors["background"]};
+
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-400px);
+
+  ${(props) =>
+    props.isOpen &&
+    `
+    transform: translateX(0px);
+  `}
 `;
 
 const HeaderTop = styled.div`
@@ -39,7 +55,7 @@ const HeaderBottom = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 400;
-  line-height: 100%; 
+  line-height: 100%;
   letter-spacing: -1px;
 
   .hello {
@@ -59,7 +75,7 @@ const Description = styled.h2`
 `;
 
 const MiddleSection = styled.section`
-  margin-top:21px;
+  margin-top: 21px;
 `;
 
 const Subtitle = styled.h3`
@@ -88,4 +104,5 @@ export const Styles = {
   Container,
   HeaderTop,
   HeaderBottom,
+  SearchContainer,
 };

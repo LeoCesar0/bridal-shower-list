@@ -1,8 +1,4 @@
-
-export const computeProducts = ({
-  products = [],
-  currentUser = null
-}) => {
+export const computeProducts = ({ products = [], currentUser = null }) => {
   const allProducts = [...products];
 
   allProducts.sort((a, b) => {
@@ -15,11 +11,14 @@ export const computeProducts = ({
       return a.name.localeCompare(b.name);
     }
   });
-    
+
   const currentGuestProducts = allProducts.filter(
-    (product) => currentUser && (product.guestId === currentUser.id)
+    (product) => currentUser && product.guestId === currentUser.id
   );
-  const mainList = allProducts.filter((product) => !product.guestId || product.guestId !== currentUser.id);
+  const mainList = allProducts.filter(
+    (product) =>
+      currentUser && (!product.guestId || product.guestId !== currentUser.id)
+  );
 
   return { currentGuestProducts, mainList };
 };

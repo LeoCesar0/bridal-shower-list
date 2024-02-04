@@ -16,11 +16,18 @@ import {
 import Link from "next/link";
 import { computeProducts } from "./computeProducts";
 import { ProductsList } from "@/components/ProductsList";
+import { Input } from "@/components/Input";
+import { slugfy } from "@/helpers/slugfy";
 
 export default function ListPage() {
   const { currentUser, logOut } = useGlobalContext();
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]); // [1]
+  const [search, setSearch] = useState("");
+  const [searchIsOpen, setSearchIsOpen] = useState(false);
   const router = useRouter();
+  const searchInputRef = useRef(null);
+  const headerRef = useRef(null);
 
   const productsRef = useRef(products);
 
@@ -62,12 +69,30 @@ export default function ListPage() {
     productsRef.current = products;
   }, [products]);
 
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      if (!search) {
+        setFilteredProducts(products);
+        return;
+      }
+
+      const slugfiedSearch = slugfy(search);
+      const filtered = products.filter((product) => {
+        return slugfy(product.name).includes(slugfiedSearch);
+      });
+      setFilteredProducts(filtered);
+    }, 500);
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [search, products]);
+
   const { currentGuestProducts, mainList } = useMemo(() => {
     return computeProducts({
-      products,
-      currentUser,
+      products: filteredProducts,
+      currentUser: currentUser,
     });
-  }, [products]);
+  }, [filteredProducts, currentUser]);
 
   if (!currentUser) return null;
 
@@ -75,16 +100,45 @@ export default function ListPage() {
 
   const wppLinkText = `Chá de Casa Nova - Izaelle e Leonardo - Lista de Presentes: ${CONFIG.appUrl}`;
 
+  const handleFocus = () => {
+    setTimeout(() => {
+      searchInputRef.current.focus();
+    }, 350);
+  };
+
   return (
     <Styles.Container>
-      <Styles.Header>
+      <Styles.Header ref={headerRef}>
         <Styles.HeaderTop>
+          {/* START SEARCH */}
+          <Styles.SearchContainer isOpen={searchIsOpen}>
+            <Input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Buscar"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onBlur={() => {
+                if (!search) {
+                  setSearchIsOpen(false);
+                }
+              }}
+            />
+          </Styles.SearchContainer>
+          {/* END SEARCH */}
           <Styles.Title>
             <span className="hello">Olá, </span>
             {guestName}
           </Styles.Title>
           <div className="actions">
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                if (!searchIsOpen) {
+                  setSearchIsOpen(true);
+                  handleFocus();
+                }
+              }}
+            >
               <Image
                 width={18}
                 height={18}
