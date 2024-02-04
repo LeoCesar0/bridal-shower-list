@@ -3,12 +3,13 @@ import styled from "styled-components";
 const Card = styled.div`
   background-color: ${({ theme }) => theme.colors["primary"]};
   padding: 8px;
-  width: 100%;
+  width: calc(100% - 24px);
   display: flex;
   align-items: flex-start;
   gap: 16px;
   border-radius: 8px;
-  overflow: hidden;
+  padding-right: 48px;
+  position: relative;
 
   .image-container {
     background-color: ${({ theme }) => theme.colors["background"]};
@@ -22,9 +23,10 @@ const Card = styled.div`
   .content {
     display: flex;
     flex-direction: column;
-    gap: 8px;
     align-items: flex-start;
     flex: 1;
+    gap: 8px;
+    overflow: hidden;
   }
 
   .texts {
@@ -55,16 +57,53 @@ const Card = styled.div`
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    word-break: break-all;
   }
 
-  .actions{
-    display:flex;
-    align-items:center;
+  .actions {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    width:100%;
+    width: 100%;
+
+    p {
+      font-family: "Inter";
+      font-weight: 300;
+      font-size: 14px;
+      color: ${({ theme }) => theme.colors["background"]};
+    }
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 62px;
+  height: 62px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  top: 50%;
+  right: -20px;
+  transform: translateY(-50%);
+
+  background-color: rgba(115, 156, 143, 0.5);
+  border-radius: 50%;
+
+  .button-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 49px;
+    height: 49px;
+    background-color: rgba(115, 156, 143, 1);
+    border-radius: 50%;
+    border: 0;
+    cursor: pointer;
   }
 `;
 
 export const Styles = {
   Card: Card,
+  ButtonContainer,
 };

@@ -49,14 +49,13 @@ const Title = styled.h1`
   }
 `;
 
-
-
 const Description = styled.h2`
   font-size: 16px;
   font-style: normal;
   font-weight: 300;
   line-height: 118%; /* 18.88px */
   letter-spacing: -0.32px;
+  font-family: "Inter";
 `;
 
 const MiddleSection = styled.section`

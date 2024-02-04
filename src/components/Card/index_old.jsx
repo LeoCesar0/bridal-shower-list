@@ -5,12 +5,13 @@ import { Styles } from "./styles";
 import { updateProductGuestId } from "@/services/supabase-api/product";
 import { useGlobalContext } from "@/provider/GlobalContextProvider";
 
-export const Card = ({ product, ...rest }) => {
+export const Card = ({
+  product,
+  ...rest
+}) => {
   const { currentUser } = useGlobalContext();
 
   const isAvailable = !product.guestId;
-
-  const isMyProduct = product.guestId && product.guestId === currentUser?.id;
 
   const statusLabel = isAvailable ? "disponível" : "selecionado";
 
@@ -18,16 +19,14 @@ export const Card = ({ product, ...rest }) => {
 
   const productName = product.name;
 
-  const toggleSelectedProduct = async () => {
-    if (currentUser && product) {
+  const toggleSelectedProduct = async ({ product }) => {
+    if (currentUser) {
       await updateProductGuestId({
         productId: product.id,
         guestId: product.guestId ? null : currentUser.id,
       });
     }
   };
-
-  const buttonIcon = isMyProduct ? "minus.svg" : "plus.svg";
 
   return (
     <Styles.Card {...rest}>
@@ -46,19 +45,43 @@ export const Card = ({ product, ...rest }) => {
           <h3 className="product-name">{productName}</h3>
         </div>
         <div className="actions">
-          <p className="comment">{comment}</p>
+          <div className="left-actions">
+            <>
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={() => {
+                  toggleSelectedProduct({ product });
+                }}
+                disabled={!isAvailable}
+              >
+                Selecionar
+              </Button>
+            </>
+          </div>
+          <div className="right-actions">
+            <>
+              {!isAvailable && product.guestId === currentUser.id && (
+                <IconButton
+                  width={24}
+                  height={24}
+                  variant="ghost"
+                  onClick={() => {
+                    toggleSelectedProduct({ product });
+                  }}
+                >
+                  <Image
+                    width={15}
+                    height={12}
+                    alt="return"
+                    src="icons/return.svg"
+                  />
+                </IconButton>
+              )}
+            </>
+          </div>
         </div>
       </div>
-      <Styles.ButtonContainer>
-        <button
-          className="button-inner"
-          onClick={() => {
-            toggleSelectedProduct();
-          }}
-        >
-          <img src={`icons/${buttonIcon}`} alt="add or remove" />
-        </button>
-      </Styles.ButtonContainer>
     </Styles.Card>
   );
 };
