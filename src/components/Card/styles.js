@@ -74,6 +74,11 @@ const Card = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-all;
 
     p {
       font-family: "Inter";
