@@ -14,12 +14,14 @@ export const Card = ({ product, ...rest }) => {
 
   const statusLabel = isAvailable ? "disponível" : "selecionado";
 
+  const disabled = product.guestId && product.guestId !== currentUser.id;
+
   const comment = "Preferência: cor branca";
 
   const productName = product.name;
 
   const toggleSelectedProduct = async () => {
-    if (currentUser && product) {
+    if (currentUser && product && !disabled) {
       await updateProductGuestId({
         productId: product.id,
         guestId: product.guestId ? null : currentUser.id,
@@ -45,20 +47,26 @@ export const Card = ({ product, ...rest }) => {
           </span>
           <h3 className="product-name">{productName}</h3>
         </div>
-        <div className="actions">
-          <p className="comment">{comment}</p>
-        </div>
+        {!disabled && (
+          <div className="actions">
+            <p className="comment">{comment}</p>
+          </div>
+        )}
       </div>
-      <Styles.ButtonContainer>
-        <button
-          className="button-inner"
-          onClick={() => {
-            toggleSelectedProduct();
-          }}
-        >
-          <img src={`icons/${buttonIcon}`} alt="add or remove" />
-        </button>
-      </Styles.ButtonContainer>
+      {!disabled && (
+        <Styles.ButtonContainer>
+          <button
+            className="button-inner"
+            onClick={() => {
+              toggleSelectedProduct();
+            }}
+            disabled={disabled}
+          >
+            <img src={`icons/${buttonIcon}`} alt="add or remove" />
+          </button>
+        </Styles.ButtonContainer>
+      )}
+      {disabled && <div className="disabled-overlay" />}
     </Styles.Card>
   );
 };

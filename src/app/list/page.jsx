@@ -62,7 +62,7 @@ export default function ListPage() {
     productsRef.current = products;
   }, [products]);
 
-  const { currentGuestProducts, productsAvailable } = useMemo(() => {
+  const { currentGuestProducts, mainList } = useMemo(() => {
     return computeProducts({
       products,
       currentUser,
@@ -135,7 +135,7 @@ export default function ListPage() {
           </Styles.MiddleSection>
         )}
         <Styles.Divider />
-        <ProductsList currentUser={currentUser} products={productsAvailable} />
+        <ProductsList currentUser={currentUser} products={mainList} />
       </main>
     </Styles.Container>
   );

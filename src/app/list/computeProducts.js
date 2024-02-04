@@ -19,7 +19,7 @@ export const computeProducts = ({
   const currentGuestProducts = allProducts.filter(
     (product) => currentUser && (product.guestId === currentUser.id)
   );
-  const productsAvailable = allProducts.filter((product) => !product.guestId);
+  const mainList = allProducts.filter((product) => !product.guestId || product.guestId !== currentUser.id);
 
-  return { currentGuestProducts, productsAvailable };
+  return { currentGuestProducts, mainList };
 };

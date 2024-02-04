@@ -11,6 +11,15 @@ const Card = styled.div`
   padding-right: 48px;
   position: relative;
 
+  .disabled-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(28, 28, 28, 0.4);
+    border-radius: 8px;
+  }
+
   .image-container {
     background-color: ${({ theme }) => theme.colors["background"]};
     width: 72px;
