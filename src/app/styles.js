@@ -47,15 +47,8 @@ const Footer = styled.footer`
   }
 
   & .inviters {
-    color: ${(props) => props.theme.colors.primary};
-    font-family: "Fasthand";
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 100%; /* 16px */
-    letter-spacing: -0.32px;
     margin-top: 25px;
-    margin-bottom: 44px;
+    margin-bottom: 25px;
   }
 `;
 

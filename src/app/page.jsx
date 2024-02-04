@@ -48,7 +48,7 @@ export default function Home() {
       </Styles.Form>
       <Styles.Footer>
         <img alt="app-splash" src="splash.svg" />
-        <h2 className="inviters">Izaelle & Leonardo</h2>
+        <img className="inviters" src="authors.svg" alt="Izaelle & Leonardo" />
       </Styles.Footer>
     </Styles.Container>
   );

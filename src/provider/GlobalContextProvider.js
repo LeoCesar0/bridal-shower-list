@@ -24,6 +24,10 @@ const GlobalContextProvider = ({ children }) => {
     }));
   };
 
+  const logOut = () => {
+    setCurrentUser(null);
+  };
+
   const reloadCurrentUser = async () => {
     const currentUser = state.currentUser;
     if (currentUser) {
@@ -62,7 +66,8 @@ const GlobalContextProvider = ({ children }) => {
         ...state,
         setState,
         setCurrentUser,
-        reloadCurrentUser
+        reloadCurrentUser,
+        logOut
       }}
     >
       {children}

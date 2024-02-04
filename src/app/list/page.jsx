@@ -15,7 +15,7 @@ import {
 } from "@/services/supabase-api/product";
 
 export default function ListPage() {
-  const { currentUser } = useGlobalContext();
+  const { currentUser, logOut } = useGlobalContext();
   const [products, setProducts] = useState([]);
   const router = useRouter();
 
@@ -80,7 +80,11 @@ export default function ListPage() {
             <IconButton>
               <Image width={18} height={18} alt="share" src="icons/share.svg" />
             </IconButton>
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                logOut();
+              }}
+            >
               <Image
                 width={18}
                 height={18}
