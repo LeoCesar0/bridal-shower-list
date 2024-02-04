@@ -181,7 +181,7 @@ export default function ListPage() {
       <main>
         {currentGuestProducts.length > 0 && (
           <Styles.MiddleSection>
-            <Styles.Subtitle>Seus presentes</Styles.Subtitle>
+            <Styles.Subtitle>Selecionado por você</Styles.Subtitle>
             <ProductsList
               currentUser={currentUser}
               products={currentGuestProducts}
