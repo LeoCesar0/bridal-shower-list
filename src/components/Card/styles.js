@@ -96,8 +96,41 @@ const ButtonContainer = styled.div`
   right: -20px;
   transform: translateY(-50%);
 
-  background-color: rgba(115, 156, 143, 0.5);
-  border-radius: 50%;
+  ::before {
+    content: "";
+    @keyframes pulse {
+      0% {
+        transform: scale(1) translateY(-50%);
+      }
+      40% {
+        transform: scale(0.9) translateY(-50%);
+      }
+      60% {
+        transform: scale(0.9) translateY(-50%);
+      }
+      80% {
+        transform: scale(1) translateY(-50%);
+      }
+      100% {
+        transform: scale(1) translateY(-50%);
+      }
+    }
+
+    width: 62px;
+    height: 62px;
+    position: absolute;
+
+    animation: pulse 2.5s infinite ease-out;
+    transform-origin: top;
+
+    inset: 0;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    background-color: rgba(115, 156, 143, 0.5);
+    border-radius: 50%;
+  }
 
   .button-inner {
     display: flex;
