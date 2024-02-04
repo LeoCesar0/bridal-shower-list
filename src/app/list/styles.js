@@ -39,8 +39,14 @@ const HeaderBottom = styled.div`
 const Title = styled.h1`
   font-size: clamp(18px, 6vw, 30px);
   font-weight: 400;
-  line-height: 100%; /* 30px */
-  letter-spacing: -0.6px;
+  line-height: 100%; 
+  letter-spacing: -2%;
+
+  .hello {
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: -2%;
+  }
 `;
 
 const Description = styled.h2`
@@ -50,7 +56,6 @@ const Description = styled.h2`
   line-height: 118%; /* 18.88px */
   letter-spacing: -0.32px;
 `;
-
 
 const List = styled.ul`
   display: flex;
@@ -66,7 +71,7 @@ const Divider = styled.div`
   margin-bottom: 8px;
 
   background-color: ${({ theme }) => theme.colors["border-light"]};
-`; 
+`;
 
 export const Styles = {
   Divider,

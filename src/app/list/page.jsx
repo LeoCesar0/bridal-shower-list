@@ -13,6 +13,7 @@ import {
   listenToProductsList,
   updateProductGuestId,
 } from "@/services/supabase-api/product";
+import Link from "next/link";
 
 export default function ListPage() {
   const { currentUser, logOut } = useGlobalContext();
@@ -42,10 +43,17 @@ export default function ListPage() {
   }, [currentUserSlug]);
 
   useEffect(() => {
+    let listener;
     listAllProducts().then((data) => {
       setProducts(data || []);
-      listenToProductsList(onProductChange);
+      listener = listenToProductsList(onProductChange);
     });
+
+    return () => {
+      if (listener) {
+        listener.unsubscribe();
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -63,11 +71,18 @@ export default function ListPage() {
 
   if (!currentUser) return null;
 
+  const guestName = currentUser.name.split(" ")[0];
+
+  const wppLinkText = `Chá de Casa Nova - Izaelle e Leonardo - Lista de Presentes: ${CONFIG.appUrl}`;
+
   return (
     <Styles.Container>
       <Styles.Header>
         <Styles.HeaderTop>
-          <Styles.Title>{CONFIG.appTitle}</Styles.Title>
+          <Styles.Title>
+            <span className="hello">Olá, </span>
+            {guestName}
+          </Styles.Title>
           <div className="actions">
             <IconButton>
               <Image
@@ -77,9 +92,19 @@ export default function ListPage() {
                 src="icons/search.svg"
               />
             </IconButton>
-            <IconButton>
-              <Image width={18} height={18} alt="share" src="icons/share.svg" />
-            </IconButton>
+            <Link
+              href={`https://api.whatsapp.com/send?text=${wppLinkText}`}
+              target="_blank"
+            >
+              <IconButton>
+                <Image
+                  width={18}
+                  height={18}
+                  alt="share"
+                  src="icons/share.svg"
+                />
+              </IconButton>
+            </Link>
             <IconButton
               onClick={() => {
                 logOut();

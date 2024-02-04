@@ -46,7 +46,7 @@ export const updateProductGuestId = async ({ productId, guestId }) => {
 };
 
 export const listenToProductsList = (onChange) => {
-  supabase
+  return supabase
     .channel("Product")
     .on(
       "postgres_changes",
