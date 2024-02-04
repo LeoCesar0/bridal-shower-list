@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
 import { useGlobalContext } from "@/provider/GlobalContextProvider";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   listAllProducts,
@@ -14,6 +14,8 @@ import {
   updateProductGuestId,
 } from "@/services/supabase-api/product";
 import Link from "next/link";
+import { computeProducts } from "./computeProducts";
+import { ProductsList } from "@/components/ProductsList";
 
 export default function ListPage() {
   const { currentUser, logOut } = useGlobalContext();
@@ -60,14 +62,12 @@ export default function ListPage() {
     productsRef.current = products;
   }, [products]);
 
-  const toggleSelectedProduct = async ({ product }) => {
-    if (currentUser) {
-      await updateProductGuestId({
-        productId: product.id,
-        guestId: product.guestId ? null : currentUser.id,
-      });
-    }
-  };
+  const { currentGuestProducts, productsAvailable } = useMemo(() => {
+    return computeProducts({
+      products,
+      currentUser,
+    });
+  }, [products]);
 
   if (!currentUser) return null;
 
@@ -124,57 +124,19 @@ export default function ListPage() {
           <img alt="tea-logo" src="tea.svg" />
         </Styles.HeaderBottom>
       </Styles.Header>
-      <Styles.Divider />
-      <Styles.List>
-        {products.map((product) => {
-          const productIsAvailable = !product.guestId;
-
-          return (
-            <li key={product.slug}>
-              <Card
-                productName={product.name}
-                isAvailable={productIsAvailable}
-                leftActions={
-                  <>
-                    <Button
-                      size="sm"
-                      variant="secondary"
-                      onClick={() => {
-                        toggleSelectedProduct({ product });
-                      }}
-                      disabled={!productIsAvailable}
-                    >
-                      Selecionar
-                    </Button>
-                  </>
-                }
-                rightActions={
-                  <>
-                    {!productIsAvailable &&
-                      product.guestId === currentUser.id && (
-                      <IconButton
-                        width={24}
-                        height={24}
-                        variant="ghost"
-                        onClick={() => {
-                          toggleSelectedProduct({ product });
-                        }}
-                      >
-                        <Image
-                          width={15}
-                          height={12}
-                          alt="return"
-                          src="icons/return.svg"
-                        />
-                      </IconButton>
-                    )}
-                  </>
-                }
-              />
-            </li>
-          );
-        })}
-      </Styles.List>
+      <main>
+        {currentGuestProducts.length > 0 && (
+          <Styles.MiddleSection>
+            <Styles.Subtitle>Seus presentes</Styles.Subtitle>
+            <ProductsList
+              currentUser={currentUser}
+              products={currentGuestProducts}
+            />
+          </Styles.MiddleSection>
+        )}
+        <Styles.Divider />
+        <ProductsList currentUser={currentUser} products={productsAvailable} />
+      </main>
     </Styles.Container>
   );
 }

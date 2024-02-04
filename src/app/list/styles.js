@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: ${({ theme }) =>
     `calc(100vh - 2*${theme.spacing["container-vertical-padding"]})`};
   width: 100%;
-  padding-top: 48px;
+  padding-top: 16px;
 `;
 
 const Header = styled.header`
-  margin-bottom: 32px;
 `;
 
 const HeaderTop = styled.div`
@@ -37,17 +37,19 @@ const HeaderBottom = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: clamp(18px, 6vw, 30px);
+  font-size: 24px;
   font-weight: 400;
   line-height: 100%; 
-  letter-spacing: -2%;
+  letter-spacing: -1px;
 
   .hello {
     font-size: 16px;
     line-height: 100%;
-    letter-spacing: -2%;
+    letter-spacing: -1px;
   }
 `;
+
+
 
 const Description = styled.h2`
   font-size: 16px;
@@ -57,27 +59,32 @@ const Description = styled.h2`
   letter-spacing: -0.32px;
 `;
 
-const List = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 0;
-  margin: 0;
+const MiddleSection = styled.section`
+  margin-top:21px;
+`;
+
+const Subtitle = styled.h3`
+  font-size: 14px;
+  font-weight: 200;
+  margin-bottom: 5px;
+  color: ${({ theme }) => theme.colors["muted-text"]};
 `;
 
 const Divider = styled.div`
   width: 100%;
   height: 1px;
   margin-bottom: 8px;
+  margin-top: 32px;
 
   background-color: ${({ theme }) => theme.colors["border-light"]};
 `;
 
 export const Styles = {
   Divider,
-  List,
   Header,
   Title,
+  Subtitle,
+  MiddleSection,
   Description,
   Container,
   HeaderTop,

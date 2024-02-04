@@ -9,6 +9,7 @@ const theme = {
     selected: "#FBEEC2",
     border: "#8A8A8A",
     "border-light": "#b6b6b6",
+    "muted-text": "rgba(46, 5, 39, 0.7)"
   },
   spacing: {
     "container-vertical-padding": "10px",
