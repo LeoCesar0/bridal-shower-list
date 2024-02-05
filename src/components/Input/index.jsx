@@ -5,14 +5,13 @@ export const Input = React.forwardRef(
   ({ type = "text", label, name, ...rest }, ref) => {
     return (
       <>
-        <div>
+        <Styles.Container>
           {label && <Styles.Label htmlFor={name}>{label}</Styles.Label>}
           <Styles.Input ref={ref} name={name} type={type} {...rest} />
-        </div>
+        </Styles.Container>
       </>
     );
   }
 );
-
 
 Input.displayName = "Input";

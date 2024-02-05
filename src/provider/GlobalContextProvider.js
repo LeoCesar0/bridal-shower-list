@@ -3,11 +3,11 @@
 import { Dialog } from "@/components/Dialog";
 import { handleStorage } from "@/helpers/handleStorage";
 import { createGuest, getGuestBySlug } from "@/services/supabase-api/guest";
-import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const initialState = {
   currentUser: null,
+  isLoading: false,
 };
 
 export const GlobalContext = createContext(initialState);
@@ -16,6 +16,13 @@ const GlobalContextProvider = ({ children }) => {
   const [state, setState] = useState(initialState);
   const [modalProps, setModalProps] = useState({});
   const { setStorage, getStorage } = handleStorage();
+
+  const setIsLoading = (isLoading) => {
+    setState((prev) => ({
+      ...prev,
+      isLoading,
+    }));
+  };
 
   const setCurrentUser = (user) => {
     setStorage("currentUser", user);
@@ -31,22 +38,25 @@ const GlobalContextProvider = ({ children }) => {
       onConfirm: () => {
         setCurrentUser(null);
       },
-      isOpen: true
+      isOpen: true,
     });
   };
 
   const reloadCurrentUser = async () => {
     const currentUser = state.currentUser;
     if (currentUser) {
+      setIsLoading(true);
       const updatedUser = await getGuestBySlug({ slug: currentUser.slug });
       if (updatedUser) {
         setCurrentUser(updatedUser);
       }
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     const check = async () => {
+      setIsLoading(true);
       const storagedUser = getStorage("currentUser") || null;
       if (storagedUser && storagedUser.slug && storagedUser.name) {
         let existingUser = await getGuestBySlug({ slug: storagedUser.slug });
@@ -63,6 +73,7 @@ const GlobalContextProvider = ({ children }) => {
           currentUser: null,
         }));
       }
+      setIsLoading(false);
     };
     check();
   }, []);
@@ -75,7 +86,8 @@ const GlobalContextProvider = ({ children }) => {
         setCurrentUser,
         reloadCurrentUser,
         logOut,
-        setModalProps
+        setModalProps,
+        setIsLoading,
       }}
     >
       {children}

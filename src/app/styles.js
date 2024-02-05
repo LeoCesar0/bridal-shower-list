@@ -30,7 +30,7 @@ const Container = styled.div`
   flex-direction: column;
   height: ${({theme}) => `calc(100vh - 2*${theme.spacing["container-vertical-padding"]})`};
   width: 100%;
-  padding-top:48px;
+  padding-top:32px;
 `;
 
 const Footer = styled.footer`

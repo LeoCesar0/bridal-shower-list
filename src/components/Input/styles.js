@@ -13,6 +13,9 @@ const Input = styled.input`
 
   background: transparent;
 
+  width: 100%;
+  max-width: 300px;
+
   border-radius: 6px;
   border: 1px solid ${(props) => props.theme.colors.border};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -27,8 +30,12 @@ export const Label = styled.label`
   margin-bottom: 8px;
 `;
 
+export const Container = styled.div`
+  width: 100%;
+`;
 
 export const Styles = {
   Input,
-  Label
+  Label,
+  Container,
 };

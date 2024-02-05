@@ -2,6 +2,7 @@ import { Styles } from "./styles";
 import { updateProductGuestId } from "@/services/supabase-api/product";
 import { useGlobalContext } from "@/provider/GlobalContextProvider";
 import { Button } from "../Button";
+import Image from "next/image";
 
 export const Card = ({ product, ...rest }) => {
   const { currentUser, setModalProps } = useGlobalContext();
@@ -31,12 +32,18 @@ export const Card = ({ product, ...rest }) => {
 
   const buttonIcon = isMyProduct ? "minus.svg" : "plus.svg";
 
-  const titleSm = productName.length > 14; 
+  const titleSm = productName.length > 14;
 
   return (
     <Styles.Card {...rest}>
       <div className="image-container">
-        <img className="image" alt="tea-logo" src={product.image} />
+        <Image
+          height={72}
+          width={72}
+          className="image"
+          alt="tea-logo"
+          src={product.image}
+        />
       </div>
       <div className="content">
         <div className="texts">
@@ -47,7 +54,9 @@ export const Card = ({ product, ...rest }) => {
           >
             {statusLabel}
           </span>
-          <h3 className={["product-name", titleSm ? "sm" : ""].join(" ")}>{productName}</h3>
+          <h3 className={["product-name", titleSm ? "sm" : ""].join(" ")}>
+            {productName}
+          </h3>
         </div>
         {!disabled && (
           <div className="actions">
@@ -64,7 +73,7 @@ export const Card = ({ product, ...rest }) => {
                 setModalProps({
                   title: "Desmarcar o produto?",
                   onConfirm: toggleSelectedProduct,
-                  isOpen: true
+                  isOpen: true,
                 });
               } else {
                 toggleSelectedProduct();
