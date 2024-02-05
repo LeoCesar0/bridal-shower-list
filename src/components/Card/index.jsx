@@ -17,7 +17,7 @@ export const Card = ({ product, ...rest }) => {
 
   const disabled = product.guestId && product.guestId !== currentUser.id;
 
-  const comment = "Preferência: cor branca";
+  const comment = product.description || "";
 
   const productName = product.name;
 

@@ -3,13 +3,10 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: ${({ theme }) =>
-    `calc(100vh - 2*${theme.spacing["container-vertical-padding"]})`};
   width: 100%;
   overflow: hidden;
 
   main {
-    /* overflow-y:auto; */
     flex:1;
     height:100%;
   }

@@ -11,7 +11,7 @@ export const GlobalStyles = createGlobalStyle`
  }
 
 *:focus{
-    outline: 1px solid ${(props) => props.theme.colors.primary};
+  outline: 1px solid ${(props) => props.theme.colors.primary};
 }
 
 html,
