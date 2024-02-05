@@ -12,19 +12,18 @@ datasource db {
 }
 
 model Guest {
-  id      Int       @id @default(autoincrement())
+  id      String    @id @default(uuid())
   name    String
-  slug    String    @unique
   Product Product[]
 }
 
 model Product {
-  id         Int      @id @default(autoincrement())
-  name       String
-  slug       String   @unique
-  image      String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  selectedBy Guest?   @relation(fields: [guestId], references: [id])
-  guestId    Int?
+  id          String   @id @default(uuid())
+  name        String
+  image       String
+  description String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  selectedBy  Guest?   @relation(fields: [guestId], references: [id])
+  guestId     String?
 }
