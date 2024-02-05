@@ -111,7 +111,7 @@ export default function ListPage() {
       <Styles.Header ref={headerRef}>
         <Styles.HeaderTop>
           {/* START SEARCH */}
-          <Styles.SearchContainer isOpen={searchIsOpen}>
+          <Styles.SearchContainer $isOpen={searchIsOpen}>
             <Input
               ref={searchInputRef}
               type="text"
@@ -178,19 +178,17 @@ export default function ListPage() {
           <img alt="tea-logo" src="tea.svg" />
         </Styles.HeaderBottom>
       </Styles.Header>
-      <main>
-        {currentGuestProducts.length > 0 && (
-          <Styles.MiddleSection>
-            <Styles.Subtitle>Selecionado por você</Styles.Subtitle>
-            <ProductsList
-              currentUser={currentUser}
-              products={currentGuestProducts}
-            />
-          </Styles.MiddleSection>
-        )}
-        <Styles.Divider />
-        <ProductsList currentUser={currentUser} products={mainList} />
-      </main>
+      {currentGuestProducts.length > 0 && (
+        <Styles.MiddleSection>
+          <Styles.Subtitle>Selecionado por você</Styles.Subtitle>
+          <ProductsList
+            currentUser={currentUser}
+            products={currentGuestProducts}
+          />
+        </Styles.MiddleSection>
+      )}
+      <Styles.Divider />
+      <ProductsList currentUser={currentUser} products={mainList} />
     </Styles.Container>
   );
 }

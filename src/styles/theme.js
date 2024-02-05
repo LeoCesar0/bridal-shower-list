@@ -12,7 +12,7 @@ const theme = {
     "muted-text": "rgba(46, 5, 39, 0.7)"
   },
   spacing: {
-    "container-vertical-padding": "10px",
+    "container-vertical-padding": "16px",
     "container-horizontal-padding": "10px",
     "container-max-width":"600px" 
   },

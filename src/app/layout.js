@@ -4,19 +4,14 @@ import StyledComponentsRegistry from "@/lib/registry";
 import "../styles/fonts.css";
 import GlobalContextProvider from "@/provider/GlobalContextProvider";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
-
 export const metadata = {
-  title: "Lista Chá de Panela",
-  description: "Lista de produtos chá de panela",
+  title: "Chá de Casa Nova",
+  description: "Lista de produtos",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="pt">
       <StyledComponentsRegistry>
         <StyledComponentsProvider>
           <GlobalContextProvider>

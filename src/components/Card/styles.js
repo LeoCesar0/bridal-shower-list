@@ -27,6 +27,14 @@ const Card = styled.div`
     border-radius: 8px;
     display: grid;
     place-items: center;
+    overflow: hidden;
+
+    .image {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
   }
 
   .content {
@@ -35,7 +43,6 @@ const Card = styled.div`
     align-items: flex-start;
     flex: 1;
     gap: 8px;
-    overflow: hidden;
   }
 
   .texts {
@@ -61,12 +68,15 @@ const Card = styled.div`
     color: ${({ theme }) => theme.colors["background"]};
     font-size: 24px;
     font-weight: 600;
-    line-height: 100%;
+    line-height: 120%;
     display: -webkit-box;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    word-break: break-all;
+
+    &.sm{
+      font-size: 20px;
+    }
   }
 
   .actions {

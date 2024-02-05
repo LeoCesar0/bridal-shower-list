@@ -6,8 +6,13 @@ const Container = styled.div`
   height: ${({ theme }) =>
     `calc(100vh - 2*${theme.spacing["container-vertical-padding"]})`};
   width: 100%;
-  padding-top: 16px;
   overflow: hidden;
+
+  main {
+    /* overflow-y:auto; */
+    flex:1;
+    height:100%;
+  }
 `;
 
 const Header = styled.header`
@@ -23,7 +28,7 @@ const SearchContainer = styled.div`
   transform: translateX(-400px);
 
   ${(props) =>
-    props.isOpen &&
+    props.$isOpen &&
     `
     transform: translateX(0px);
   `}

@@ -14,7 +14,7 @@ export const Dialog = ({
   return (
     <>
       <Styles.Overlay
-        isOpen={isOpen}
+        $isOpen={isOpen}
         onClick={(event) => {
           setModalProps({});
         }}
@@ -23,7 +23,7 @@ export const Dialog = ({
           onClick={(event) => {
             event.stopPropagation();
           }}
-          isOpen={isOpen}
+          $isOpen={isOpen}
         >
           <Styles.Header>
             <Styles.Title>{title}</Styles.Title>

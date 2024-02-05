@@ -31,10 +31,12 @@ export const Card = ({ product, ...rest }) => {
 
   const buttonIcon = isMyProduct ? "minus.svg" : "plus.svg";
 
+  const titleSm = productName.length > 14; 
+
   return (
     <Styles.Card {...rest}>
       <div className="image-container">
-        <img className="image" alt="tea-logo" src="tea.svg" />
+        <img className="image" alt="tea-logo" src={product.image} />
       </div>
       <div className="content">
         <div className="texts">
@@ -45,7 +47,7 @@ export const Card = ({ product, ...rest }) => {
           >
             {statusLabel}
           </span>
-          <h3 className="product-name">{productName}</h3>
+          <h3 className={["product-name", titleSm ? "sm" : ""].join(" ")}>{productName}</h3>
         </div>
         {!disabled && (
           <div className="actions">

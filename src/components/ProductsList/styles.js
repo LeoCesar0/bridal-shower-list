@@ -6,6 +6,7 @@ const List = styled.ul`
   gap: 8px;
   padding: 0;
   margin: 0;
+  overflow-y: scroll;
 `;
 
 export const Styles = {

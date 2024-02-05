@@ -1,5 +1,6 @@
 import { slugfy } from "@/helpers/slugfy";
 import { supabase } from "@/services/supabase";
+import { v4 as uuidv4 } from "uuid";
 
 export const getGuestBySlug = async ({ slug }) => {
   const { data, error } = await supabase
@@ -27,14 +28,15 @@ export async function createGuest(values) {
 
   const existingGuest = await getGuestBySlug({ slug });
 
-
   if (existingGuest) {
     return existingGuest;
   }
 
+  const id = uuidv4();
+
   const { data, error } = await supabase
     .from("Guest")
-    .insert([{ name: name, slug: slugfy(name) }])
+    .insert([{ name: name, slug: slugfy(name), id: id }])
     .select()
     .single();
 
